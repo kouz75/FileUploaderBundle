@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2014 Jonathan Bouzekri. All rights reserved.
  *
@@ -7,12 +6,8 @@
  * @license https://github.com/jbouzekri/FileUploaderBundle/blob/master/LICENSE
  * @link https://github.com/jbouzekri/FileUploaderBundle
  */
-
 namespace Jb\Bundle\FileUploaderBundle\Service\Resolver;
-
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
-use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
-
+use Symfony\Component\Asset\Packages;
 /**
  * AssetsResolver
  *
@@ -21,33 +16,29 @@ use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
 class AssetsResolver implements ResolverInterface
 {
     /**
-     * @var \Symfony\Component\Templating\Helper\CoreAssetsHelper
+     * @var Packages
      */
-    protected $helper;
-
+    protected $assetPackages;
     /**
      * @var string
      */
     protected $directory;
-
     /**
-     * Constructor
-     *
-     * @param AssetsHelper $helper
-     * @param string $directory
+     * AssetsResolver constructor.
+     * @param Packages $assetPackages
+     * @param $directory
      */
-    public function __construct(AssetsHelper $helper, $directory)
+    public function __construct(Packages $assetPackages, $directory)
     {
-        $this->helper = $helper;
+        $this->assetPackages = $assetPackages;
         $this->directory = $directory;
     }
-
     /**
      * {@inheritdoc}
      */
     public function getUrl($key)
     {
-        return $this->helper->getUrl(
+        return $this->assetPackages->getUrl(
             trim($this->directory, '/') . '/' . $key
         );
     }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2014 Jonathan Bouzekri. All rights reserved.
  *
@@ -7,15 +6,14 @@
  * @license https://github.com/jbouzekri/FileUploaderBundle/blob/master/LICENSE
  * @link https://github.com/jbouzekri/FileUploaderBundle
  */
-
 namespace Jb\Bundle\FileUploaderBundle\Form\Type;
-
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\Range;
-
 /**
  * CropType
  */
@@ -27,40 +25,44 @@ class CropType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-
         $builder
-            ->add('x', 'integer', array(
-                'constraints' => array(new NotBlank(), new Range(array('min' => 0)))
-            ))
-            ->add('y', 'integer', array(
-                'constraints' => array(new NotBlank(), new Range(array('min' => 0)))
-            ))
-            ->add('width', 'integer', array(
-                'constraints' => array(new NotBlank(), new Range(array('min' => 0)))
-            ))
-            ->add('height', 'integer', array(
-                'constraints' => array(new NotBlank(), new Range(array('min' => 0)))
-            ))
-            ->add('filename', 'text', array(
-                'constraints' => array(new NotBlank())
-            ));
+            ->add('x', IntegerType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Range(['min' => 0]),
+                ]
+            ])
+            ->add('y', IntegerType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Range(['min' => 0]),
+                ]
+            ])
+            ->add('width', IntegerType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Range(['min' => 0]),
+                ]
+            ])
+            ->add('height', IntegerType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Range(['min' => 0]),
+                ]
+            ])
+            ->add('filename', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ]);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'csrf_protection' => false,
         ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'jb_fileuploader_crop';
     }
 }

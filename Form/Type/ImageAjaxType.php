@@ -56,19 +56,14 @@ class ImageAjaxType extends AbstractType
         }
     }
 
+
+        
+
     /**
      * {@inheritDoc}
      */
     public function getParent()
     {
-        return 'jb_file_ajax';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'jb_image_ajax';
+        return FileAjaxType::class;
     }
 }

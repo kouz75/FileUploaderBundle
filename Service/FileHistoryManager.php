@@ -12,7 +12,7 @@ namespace Jb\Bundle\FileUploaderBundle\Service;
 
 use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Jb\Bundle\FileUploaderBundle\Service\ResolverChain;
 use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
 
@@ -29,7 +29,7 @@ class FileHistoryManager implements FileHistoryManagerInterface
     protected $em;
 
     /**
-     * @var \Symfony\Component\Security\Core\SecurityContext
+     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationChecker
      */
     protected $securityContext;
 
@@ -47,13 +47,13 @@ class FileHistoryManager implements FileHistoryManagerInterface
      * Constructor
      *
      * @param ObjectManager $em
-     * @param SecurityContext $securityContext
+     * @param AuthorizationChecker $securityContext
      * @param \Jb\Bundle\FileUploaderBundle\Service\ResolverChain $imagine
      * @param \Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration $configuration
      */
     public function __construct(
         ObjectManager $em,
-        SecurityContext $securityContext,
+        AuthorizationChecker $securityContext,
         ResolverChain $resolvers,
         EndpointConfiguration $configuration
     ) {

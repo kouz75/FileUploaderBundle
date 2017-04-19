@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2014 Jonathan Bouzekri. All rights reserved.
  *
@@ -7,30 +6,27 @@
  * @license https://github.com/jbouzekri/FileUploaderBundle/blob/master/LICENSE
  * @link https://github.com/jbouzekri/FileUploaderBundle
  */
-
 namespace Jb\Bundle\FileUploaderBundle\Form\Type;
-
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-
 /**
- * FileAjaxType
+ * Class ImageAjaxType
+ * @package Jb\Bundle\FileUploaderBundle\Form\Type
  */
 class ImageAjaxType extends AbstractType
 {
     /**
      * {@inheritDoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setOptional(array(
+        $resolver->setDefined(array(
             'default_image',
             'img_width',
             'img_height'
         ));
-
         $resolver->setDefaults(
             array(
                 'default_image' => 'bundles/jbfileuploader/img/default.png',
@@ -38,7 +34,6 @@ class ImageAjaxType extends AbstractType
             )
         );
     }
-
     /**
      * {@inheritDoc}
      */
@@ -46,19 +41,13 @@ class ImageAjaxType extends AbstractType
     {
         $view->vars['download_link'] = false;
         $view->vars['default_image'] = $options['default_image'];
-
         if (isset($options['img_width'])) {
             $view->vars['img_width'] = $options['img_width'];
         }
-
         if (isset($options['img_height'])) {
             $view->vars['img_height'] = $options['img_height'];
         }
     }
-
-
-        
-
     /**
      * {@inheritDoc}
      */

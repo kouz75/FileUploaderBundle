@@ -1,29 +1,30 @@
 parameters:
     jb_fileuploader.resolver.asset.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\AssetsResolver
     jb_fileuploader.resolver.aws3.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\Aws3Resolver
+    jb_fileuploader.resolver.cdn.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\CdnResolver
     jb_fileuploader.resolver_chain.class: Jb\Bundle\FileUploaderBundle\Service\ResolverChain
     jb_fileuploader.resolver.imagine.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\ImagineCacheManagerResolver
 
 services:
     jb_fileuploader.resolver.aws3.prototype:
-        class: '%jb_fileuploader.resolver.aws3.prototype.class%'
-        scope: request
+        class: "%jb_fileuploader.resolver.aws3.prototype.class%"
+        abstract: true
+
+    jb_fileuploader.resolver.cdn.prototype:
+        class: "%jb_fileuploader.resolver.cdn.prototype.class%"
         abstract: true
 
     jb_fileuploader.resolver.asset.prototype:
-        class: '%jb_fileuploader.resolver.asset.prototype.class%'
-        scope: request
+        class: "%jb_fileuploader.resolver.asset.prototype.class%"
         arguments:
-            - '@templating.helper.assets'
+            - "@assets.packages"
         abstract: true
 
     jb_fileuploader.resolver.imagine.prototype:
-        class: '%jb_fileuploader.resolver.imagine.prototype.class%'
-        scope: request
+        class: "%jb_fileuploader.resolver.imagine.prototype.class%"
         arguments:
-            - '@liip_imagine.cache.manager'
+            - "@liip_imagine.cache.manager"
         abstract: true
 
     jb_fileuploader.resolver_chain:
         class: "%jb_fileuploader.resolver_chain.class%"
-        scope: request

@@ -54,7 +54,6 @@ class Aws3ResolverFactory implements ResolverFactoryInterface
     {
         $container
             ->setDefinition($id, new DefinitionDecorator('jb_fileuploader.resolver.aws3.prototype'))
-            ->setScope('request')
             ->addArgument(new Reference($config['service_id']))
             ->addArgument($config['bucket'])
             ->addArgument($config['directory'])

@@ -68,14 +68,6 @@ class CropImageAjaxType extends AbstractType
      */
     public function getParent()
     {
-        return 'jb_image_ajax';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'jb_crop_image_ajax';
+        return ImageAjaxType::class;
     }
 }
